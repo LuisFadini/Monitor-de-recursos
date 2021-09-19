@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Monitor de Recursos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section>
+        <div id="txt">Uso CPU</div>
+        <div id="box">
+            <div id="label"></div>
+        </div>
+        <div id="txt">Memória em Uso</div>
+        <div id="box">
+            <div id="label2"></div>
+        </div>
+        <div id="txt">Memória Disponivel</div>
+        <div id="box">
+            <div id="label3"></div>
+        </div>
+        <div id="txt">Memória Total</div>
+        <div id="box">
+            <div id="label4"></div>
+        </div>
+
+    </section>
+    <!--<span class="label"></span>
+    <div class="box">
+        <span class="label">CPU (%)</span>
+        <span id="cpu">-</span>
+    </div>
+    <div class="box">
+        <span class="label">Memória Disponivel (%)</span>
+        <span id="mem">-</span>
+    </div>-->
+    <script>
+        const electron = require('electron')
+        const ipcRenderer = electron.ipcRenderer;
+
+
+        ipcRenderer.on('cpu', async (event, data) => {
+            var width = data.toFixed(1);
+            var interBar = document.getElementById('label')
+            var bar = document.getElementById('label')
+            interBar.innerHTML = width + '%'
+            bar.style.width = width + '%';
+        })
+
+        ipcRenderer.on('mem', (event, data) => {
+            var width = data.toFixed(1);
+            var interBar = document.getElementById('label2')
+            var bar = document.getElementById('label2')
+            interBar.innerHTML = width + '%'
+            bar.style.width = width + '%';
+        })
+
+        ipcRenderer.on('mem-disp', (event, data) => {
+            var width = data.toFixed(1);
+            var interBar = document.getElementById('label3')
+            var bar = document.getElementById('label3')
+            interBar.innerHTML = width + '%'
+            bar.style.width = width + '%';
+        })
+        
+        ipcRenderer.on('total-mem', (event, data) => {
+            var width = 100
+            var interBar = document.getElementById('label4')
+            var bar = document.getElementById('label4')
+            interBar.innerHTML = data.toFixed(0) + 'GB'
+            bar.style.width = width + '%';
+        })
+
+    </script>
+</body>
+
+</html>
