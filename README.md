@@ -1,3 +1,3 @@
 # Monitor-de-recursos
 
-Feito em Electron
+Feito em Electron.js
